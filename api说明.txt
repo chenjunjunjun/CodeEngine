@@ -1,0 +1,136 @@
+题目接口
+只支持GET方法
+带参数按类型返回值
+https://code.cyjun.win/question/
+例：https://code.cyjun.win/question/?type=c 
+
+返回信息类型，例：
+{
+        "id": 1,
+        "type": "Java",
+        "question": "  数据库系统的核心是",
+        "answers": [
+            " 数据模型",
+            " 数据库管理系统",
+            " 软件工具",
+            " 数据库"
+        ],
+        "right_answer": "B",
+        "attribute": []
+    },
+——————————————————————————————————————————————————————————————————————
+文档接口
+只支持GET方法
+带参数按类型返回值
+https://code.cyjun.win/knowledge/ (?type=) 同上
+
+返回信息类型，例：
+{
+        "id": 3,
+        "type": "数据结构",
+        "chapter": [
+            {
+                "id": 28,
+                "chapter_title": "各类数据结构的特点"
+            },
+            {
+                "id": 29,
+                "chapter_title": "常用数据结构的优缺点"
+            },
+            {
+                "id": 30,
+                "chapter_title": "数据结构堆详解"
+            }
+        ]
+    },
+
+文档章节接口
+GET方法
+依附于文档接口
+https://code.cyjun.win/knowledge/chapter/<ID>
+ID在文档接口返回值中给出
+
+返回信息类型，例
+{
+    "id": 2,
+    "chapter_title": "C语言是菜鸟和大神的分水岭",
+    "content": "作为一门古老的编程语言，C语言已经坚挺了好几十年了..."
+}
+
+——————————————————————————————————————————————————————————————————————
+
+登录接口
+支持POST，GET方法
+POST 方法为登录操作，请求需带微信code数据
+返回后台一个密钥（session）用于后台交互安全认证
+https://code.cyjun.win/auth/
+
+返回值例：
+'body': {
+  'session': 'dasdada',
+  },
+  'status': 201,
+ 'msg': 'success',
+
+
+GET方法为session认证接口
+https://code.cyjun.win/auth/
+
+{
+	'status': 200,
+	'msg': 'success',
+}
+
+——————————————————————————————————————————————————————————————————————
+
+用户信息接口
+https://code.cyjun.win/userview
+支持POST，GET方法
+POST方法：请求信息带session，用于保存用户微信昵称与头像
+返回值例：
+{
+	'status': 200,
+	'msg': 'success',
+}
+
+
+GET方法：用于获取用户昵称与头像
+返回值例：
+{
+      'status': 200,
+      'msg': 'success',
+      'avatar': user.avatar,
+      'nick_name': user.nick_name,
+}
+
+————————————————————————————————————————————————————————————————————————
+
+排行榜接口
+只支持GET方法
+https://code.cyjun.win/rank/ 
+
+返回值按分数降序返回
+返回值例：
+{
+        "id": 9,
+        "nick_name": "zhangshuo",
+        "answer_score": 52,
+        "avatar": "9"
+  },
+————————————————————————————————————————————————————————————————————————
+
+分数与已答题目更新接口
+只支持POST方法，请求需带session认证
+https://code.cyjun.win/update/
+此接口后台接受数据
+data{
+	session:'',
+	answer_score  (int):0,
+	answer_counting (string):''
+}
+
+返回值例：
+{
+	'status': 200,
+	'msg': 'success',
+}
